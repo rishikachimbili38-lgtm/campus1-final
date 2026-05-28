@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register for Event</title>
+    <style>
+        body{font-family:Arial;padding:20px;max-width:600px;margin:0 auto}
+       .card{background:#f9f9f9;padding:20px;border-radius:8px;margin:20px 0}
+        input,textarea{width:100%;padding:10px;margin:8px 0;box-sizing:border-box;border:1px solid #ccc;border-radius:4px}
+        button{background:#28a745;color:white;padding:10px 20px;border:none;border-radius:4px;cursor:pointer;margin-right:10px}
+       .back{background:#6c757d}
+        label{font-weight:bold;display:block;margin-top:10px}
+       .info{margin:5px 0}
+       .info b{display:inline-block;width:120px}
+    </style>
+</head>
+<body>
+    <h2>Register for Event</h2>
+    <div class="card">
+        <h3 th:text="${event.name}"></h3>
+        <div class="info"><b>Category:</b> <span th:text="${event.category}"></span></div>
+        <div class="info"><b>Date:</b> <span th:text="${event.date}"></span> at <span th:text="${event.time}"></span></div>
+        <div class="info"><b>Venue:</b> <span th:text="${event.venue}"></span></div>
+        <div class="info"><b>Organizer:</b> <span th:text="${event.organizer}"></span></div>
+        <div class="info"><b>Seats Available:</b> <span th:text="${event.availableSeats}"></span> / <span th:text="${event.totalSeats}"></span></div>
+        <div class="info"><b>Description:</b></div>
+        <p th:text="${event.description}"></p>
+        
+        <div th:if="${event.instruction!= null and!event.instruction.isEmpty()}" style="background:#fff3cd;padding:10px;border-radius:4px;margin-top:10px">
+            <b>Instructions:</b>
+            <p th:text="${event.instruction}" style="margin:5px 0"></p>
+        </div>
+        
+        <div th:if="${event.customerCare!= null and!event.customerCare.isEmpty()}" style="background:#d1ecf1;padding:10px;border-radius:4px;margin-top:10px">
+            <b>Customer Care:</b> <span th:text="${event.customerCare}"></span>
+        </div>
+    </div>
+
+    <form th:action="@{/student/register/{id}(id=${event.id})}" th:object="${registration}" method="post">
+        <h3>Your Details</h3>
+        
+        <label>Student Name *</label>
+        <input type="text" th:field="*{studentName}" placeholder="Enter your full name" required>
+        
+        <label>Roll Number *</label>
+        <input type="text" th:field="*{rollNo}" placeholder="Enter your roll number" required>
+        
+        <label>College *</label>
+        <input type="text" th:field="*{college}" placeholder="Enter your college name" required>
+        
+        <label>Branch *</label>
+        <input type="text" th:field="*{branch}" placeholder="CSE, ECE, MECH, etc" required>
+        
+        <label>Phone Number *</label>
+        <input type="tel" th:field="*{phone}" pattern="[0-9]{10}" placeholder="10 digit mobile number" required>
+        
+        <label>Email *</label>
+        <input type="email" th:field="*{email}" placeholder="your.email@college.com" required>
+        
+        <button type="submit">Confirm Registration</button>
+        <a th:href="@{/student}"><button type="button" class="back">Back</button></a>
+    </form>
+</body>
+</html>

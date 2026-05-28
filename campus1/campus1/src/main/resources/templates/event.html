@@ -1,0 +1,24 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><title>Edit Event</title>
+<style>body{font-family:Arial;padding:20px}
+.form{background:#f9f9f9;padding:20px;border-radius:8px;margin-bottom:20px}
+input,textarea{width:100%;padding:8px;margin:5px 0;box-sizing:border-box}
+button{background:#28a745;color:white;padding:10px 15px;border:none;border-radius:4px;cursor:pointer}
+.cancel{background:#6c757d;margin-left:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}</style></head><body>
+<h2>Edit Event</h2>
+<div class="form">
+<form th:action="@{/admin/update/{id}(id=${event.id})}" th:object="${event}" method="post">
+<div class="grid">
+<input type="text" th:field="*{name}" placeholder="Event Name" required/>
+<input type="text" th:field="*{category}" placeholder="Category" required/>
+<input type="date" th:field="*{date}" required/>
+<input type="time" th:field="*{time}" required/>
+<input type="text" th:field="*{venue}" placeholder="Venue" required/>
+<input type="text" th:field="*{organizer}" placeholder="Organizer" required/>
+</div>
+<textarea th:field="*{description}" placeholder="Description" required></textarea>
+<input type="number" th:field="*{totalSeats}" placeholder="Total Seats" required/>
+<button type="submit">Update Event</button>
+<a th:href="@{/admin}"><button type="button" class="cancel">Cancel</button></a>
+</form></div>
+</body></html>
