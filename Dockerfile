@@ -3,6 +3,6 @@ WORKDIR /app
 COPY . .
 RUN chmod +x mvnw
 RUN ./mvnw clean install -DskipTests
-RUN ls -la target/
+RUN echo "=== JARS IN TARGET ===" && ls -la target/
 EXPOSE 10000
-CMD ["sh", "-c", "ls -la target/ && java -jar target/campus1-0.0.1-SNAPSHOT.jar"]
+CMD ["sh", "-c", "echo 'Starting app...' && ls -la target/ && java -jar target/*.jar"]
